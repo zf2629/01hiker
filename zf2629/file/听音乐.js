@@ -15,11 +15,11 @@ if (MY_PAGE == 1) {
 				saveFile('hiker://files/zf2629/json/gedan.json', '[{"title":"热搜歌曲","icon":"http://qpic.y.qq.com/music_cover/hKFribMhwH4ClwNWJxicuCxjuwIkbZPq4HVT0Qgxsdb8JWQXXC2TFsuQ/600?n=1","id":7532670538},{"title":"抖音热门","icon":"http://qpic.y.qq.com/music_cover/WpvdJXfn798ibD4gcfjw0NSuBkFTJYpY5QOev3ExcBQiamRcobkpN77g/600?n=1","id":7630303474}]');
 			}
 			let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
-			return $(gedan, 2, '小七歌单').select((gedan) => {
+			return $(gedan, 2, 'QQ音乐歌单').select((gedan) => {
 				let a = gedan.findIndex(t => t.title == input);
 				var id = gedan[a].id;
 				return $('hiker://empty#immersiveTheme##noHistory##noRecordHistory#').rule((id) => {
-					setPageTitle('小七歌单');
+					setPageTitle('QQ音乐歌单');
 					let d = [];
 
 					function sign(params) {
@@ -662,7 +662,7 @@ if (MY_PAGE == 1) {
 			}],
 		}
 	}, {
-		title: '‘‘’’小七<small> 榜单</small>',
+		title: '‘‘’’QQ歌单<small> 榜单</small>',
 		col_type: 'icon_3_round_fill',
 		pic: 'hiker://files/zf2629/svg/QQ音乐.svg',
 		url: $('#noLoading#').lazyRule(() => {
@@ -787,12 +787,12 @@ if (MY_PAGE == 1) {
 				"id": 105,
 				"title": "日本公信榜"
 			}];
-			return $(gedan, 2, '小七排行榜').select((gedan) => {
+			return $(gedan, 2, 'QQ歌单排行榜').select((gedan) => {
 				let a = gedan.findIndex(t => t.title == input);
 				let id = gedan[a].id;
 				return $('hiker://empty#fypage#immersiveTheme##noHistory##noRecordHistory#').rule((id) => {
 					let d = [];
-					setPageTitle('小七榜单');
+					setPageTitle('QQ歌单榜单');
 
 					function sign(params) {
 						function middle(ls) {
@@ -1124,7 +1124,7 @@ if (MY_PAGE == 1) {
 		}),
 	}); /*网易排行榜歌单_开始*/
 	d.push({
-		title: '‘‘’’小芸<small> 榜单</small>',
+		title: '‘‘’’网易<small> 榜单</small>',
 		col_type: 'icon_3_round_fill',
 		pic: 'hiker://files/zf2629/svg/网易.svg',
 		url: $('#noLoading#').lazyRule(() => {
@@ -1135,12 +1135,12 @@ if (MY_PAGE == 1) {
 					id: l.id
 				};
 			});
-			return $(gedan, 2, '小芸排行榜').select((gedan) => {
+			return $(gedan, 2, '网易排行榜').select((gedan) => {
 				let a = gedan.findIndex(t => t.title == input);
 				let id = gedan[a].id;
 				return $('hiker://empty#immersiveTheme##noHistory##noRecordHistory#').rule((id) => {
 					let d = [];
-					setPageTitle('小芸歌单');
+					setPageTitle('网易歌单');
 					let html = JSON.parse(fetch('http://music.163.com/api/v6/playlist/detail?n=1000&id=' + id, {
 						headers: {
 							"User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36",
@@ -1221,7 +1221,7 @@ if (MY_PAGE == 1) {
 		}),
 	}); /*网易排行榜歌单_结束*/
 	d.push({
-		title: getItem('kwgd', 'new') == 'new' ? '‘‘’’小莴<small> 最新</small>' : '‘‘’’小莴<small> 最热</small>',
+		title: getItem('kwgd', 'new') == 'new' ? '‘‘’’酷我<small> 最新</small>' : '‘‘’’酷我<small> 最热</small>',
 		col_type: 'icon_3_round_fill',
 		pic: 'hiker://files/zf2629/svg/酷我.svg',
 		url: $('#noLoading#').lazyRule(() => {
@@ -1240,12 +1240,12 @@ if (MY_PAGE == 1) {
 			var txt = input;
 			setItem('sspt_input', txt); /*音乐搜索引擎_开始*/
 			return "select://" + JSON.stringify({
-				options: ["小七", "小芸", "小莴"],
+				options: ["QQ音乐", "网易", "酷我"],
 				attachView: true,
 				js: $.toString((txt) => {
-					if (input == '小七') {
+					if (input == 'QQ音乐') {
 						return $('hiker://empty#fypage#immersiveTheme##noHistory##noRecordHistory#').rule((txt) => {
-							setPageTitle('小七搜索');
+							setPageTitle('QQ音乐搜索');
 							let d = [];
 							let json = JSON.parse(fetch('https://u.y.qq.com/cgi-bin/musicu.fcg', {
 								headers: {
@@ -1476,9 +1476,9 @@ if (MY_PAGE == 1) {
 							});
 							setResult(d);
 						}, txt)
-					} else if (input == '小芸') {
+					} else if (input == '网易') {
 						return $('hiker://empty#immersiveTheme##noHistory##noRecordHistory#').rule((txt) => {
-							setPageTitle('小芸搜索');
+							setPageTitle('网易搜索');
 							let d = [];
 							let json = JSON.parse(fetch('http://music.163.com/api/search/get/web?type=1&offset=0&limit=90&s=' + txt)).result.songs.map(j => {
 								let singer = j.artists.map(s => s.name);
@@ -1554,7 +1554,7 @@ if (MY_PAGE == 1) {
 						}, txt)
 					} else {
 						return $('hiker://empty#fypage#immersiveTheme##noHistory##noRecordHistory#').rule((txt) => {
-							setPageTitle('小莴搜索');
+							setPageTitle('酷我搜索');
 							let d = [];
 							let json = JSON.parse(fetch('https://search.kuwo.cn/r.s?client=kt&pn=' + (MY_PAGE - 1) + '&rn=30&vipver=1&ft=music&encoding=utf8&rformat=json&mobi=1&all=' + txt)).abslist.map(j => {
 								let img = ('http://img1.kwcdn.kuwo.cn/star/albumcover/500' + j.web_albumpic_short.split('120')[1]);
@@ -1655,7 +1655,7 @@ json.data.map(data => {
 		col_type: 'card_pic_3',
 		pic: data.img,
 		url: $('hiker://empty#fypage#immersiveTheme##noHistory##noRecordHistory#').rule((data) => {
-			setPageTitle('小莴歌单');
+			setPageTitle('酷我歌单');
 			let d = [];
 			let html = JSON.parse(fetch('https://m.kuwo.cn/newh5app/wapi/api/www/playlist/playListInfo?pid=' + data.id + '&rn=30&ua=&ip=&pn=' + MY_PAGE)).data;
 			var json = html.musicList.map(j => {
