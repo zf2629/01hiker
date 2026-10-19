@@ -9,7 +9,7 @@ if (MY_PAGE == 1) {
 	}, {
 		title: '‘‘’’<big><font color="#1AB16B">听点音乐</font></big><small><small> 歌单</small></small>',
 		col_type: 'text_1',
-		pic: 'http://123.56.105.145/tubiao/music/85.svg',
+		pic: 'hiker://files/zf2629/file/svg/酷我.svg',
 		url: $('#noLoading#').lazyRule(() => {
 			if (!fileExist('hiker://files/Jm/gedan.json')) {
 				saveFile('hiker://files/Jm/gedan.json', '[{"title":"热搜歌曲","icon":"http://qpic.y.qq.com/music_cover/hKFribMhwH4ClwNWJxicuCxjuwIkbZPq4HVT0Qgxsdb8JWQXXC2TFsuQ/600?n=1","id":7532670538},{"title":"抖音热门","icon":"http://qpic.y.qq.com/music_cover/WpvdJXfn798ibD4gcfjw0NSuBkFTJYpY5QOev3ExcBQiamRcobkpN77g/600?n=1","id":7630303474}]');
