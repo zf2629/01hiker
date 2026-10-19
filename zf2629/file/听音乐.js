@@ -4,7 +4,7 @@ if (MY_PAGE == 1) {
 	d.push({
 		col_type: 'pic_1_full',
 		title: '0',
-		img: "http://123.56.105.145/weisyr/img/TopImg0.png",
+		img: "hiker://files/zf2629/file/svg/logo.png",
 		url: 'hiker://localMedia',
 	}, {
 		title: '‘‘’’<big><font color="#1AB16B">听点音乐</font></big><small><small> 歌单</small></small>',
