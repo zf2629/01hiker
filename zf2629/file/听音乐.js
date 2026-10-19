@@ -4,17 +4,17 @@ if (MY_PAGE == 1) {
 	d.push({
 		col_type: 'pic_1_full',
 		title: '0',
-		img: "hiker://files/zf2629/file/svg/logo.png",
+		img: "hiker://files/zf2629/svg/logo.png",
 		url: 'hiker://localMedia',
 	}, {
 		title: '‘‘’’<big><font color="#1AB16B">听点音乐</font></big><small><small> 歌单</small></small>',
 		col_type: 'text_1',
-		pic: 'hiker://files/zf2629/file/svg/酷我.svg',
+		pic: 'hiker://files/zf2629/svg/QQ音乐.svg',
 		url: $('#noLoading#').lazyRule(() => {
-			if (!fileExist('hiker://files/Jm/gedan.json')) {
-				saveFile('hiker://files/Jm/gedan.json', '[{"title":"热搜歌曲","icon":"http://qpic.y.qq.com/music_cover/hKFribMhwH4ClwNWJxicuCxjuwIkbZPq4HVT0Qgxsdb8JWQXXC2TFsuQ/600?n=1","id":7532670538},{"title":"抖音热门","icon":"http://qpic.y.qq.com/music_cover/WpvdJXfn798ibD4gcfjw0NSuBkFTJYpY5QOev3ExcBQiamRcobkpN77g/600?n=1","id":7630303474}]');
+			if (!fileExist('hiker://files/zf2629/json/gedan.json')) {
+				saveFile('hiker://files/zf2629/json/gedan.json', '[{"title":"热搜歌曲","icon":"http://qpic.y.qq.com/music_cover/hKFribMhwH4ClwNWJxicuCxjuwIkbZPq4HVT0Qgxsdb8JWQXXC2TFsuQ/600?n=1","id":7532670538},{"title":"抖音热门","icon":"http://qpic.y.qq.com/music_cover/WpvdJXfn798ibD4gcfjw0NSuBkFTJYpY5QOev3ExcBQiamRcobkpN77g/600?n=1","id":7630303474}]');
 			}
-			let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+			let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 			return $(gedan, 2, '小七歌单').select((gedan) => {
 				let a = gedan.findIndex(t => t.title == input);
 				var id = gedan[a].id;
@@ -547,9 +547,9 @@ if (MY_PAGE == 1) {
 								id: j.id
 							};
 						});
-						gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+						gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 						gedan = gedan.concat(json);
-						saveFile('hiker://files/Jm/gedan.json', JSON.stringify(gedan));
+						saveFile('hiker://files/zf2629/json/gedan.json', JSON.stringify(gedan));
 						refreshPage(false);
 						return 'toast://已添加'
 					})
@@ -580,7 +580,7 @@ if (MY_PAGE == 1) {
 							desc: '显示名称@图片链接@QQ音乐id',
 							url: $.toString(() => {
 								if (!input) return "toast://请根据提示输入内容";
-								let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+								let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 								let n = input.split('@');
 								data = {
 									title: n[0],
@@ -588,7 +588,7 @@ if (MY_PAGE == 1) {
 									id: n[2]
 								};
 								gedan = gedan.concat(data);
-								saveFile('hiker://files/Jm/gedan.json', JSON.stringify(gedan));
+								saveFile('hiker://files/zf2629/json/gedan.json', JSON.stringify(gedan));
 								refreshPage(false);
 								return 'toast://已添加'
 							}),
@@ -602,7 +602,7 @@ if (MY_PAGE == 1) {
 							col_type: 'scroll_button',
 							url: 'hiker://empty',
 						});
-						let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+						let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 						var index = 0;
 						gedan.map(j => {
 							var item = j.title + '@' + j.icon + '@' + j.id;
@@ -613,20 +613,20 @@ if (MY_PAGE == 1) {
 								url: $(['编辑', '移位', '删除'], 3, '请选择').select((index, item) => {
 									if (input == '编辑') {
 										return $(item, '想要更换的歌单名,歌单id,图片链接 ').input((index) => {
-											let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+											let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 											let n = input.split('@');
 											gedan[index] = {
 												title: n[0],
 												icon: n[1],
 												id: n[2]
 											};
-											saveFile('hiker://files/Jm/gedan.json', JSON.stringify(gedan));
+											saveFile('hiker://files/zf2629/json/gedan.json', JSON.stringify(gedan));
 											refreshPage(false);
 											return 'toast://更改成功~'
 										}, index)
 									} else if (input == '移位') {
 										return $('', '要移动到哪个序号前面/后面').input((index) => {
-											let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+											let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 											let temp = gedan[index];
 											gedan.splice(input, 0, temp);
 											if (input < index) {
@@ -634,14 +634,14 @@ if (MY_PAGE == 1) {
 											} else {
 												gedan.splice(index, 1);
 											}
-											saveFile('hiker://files/Jm/gedan.json', JSON.stringify(gedan));
+											saveFile('hiker://files/zf2629/json/gedan.json', JSON.stringify(gedan));
 											refreshPage(false);
 											return 'toast://移位成功~'
 										}, index)
 									} else {
-										let gedan = JSON.parse(request('hiker://files/Jm/gedan.json'));
+										let gedan = JSON.parse(request('hiker://files/zf2629/json/gedan.json'));
 										gedan.splice(index, 1);
-										saveFile('hiker://files/Jm/gedan.json', JSON.stringify(gedan));
+										saveFile('hiker://files/zf2629/json/gedan.json', JSON.stringify(gedan));
 										refreshPage(false);
 										return 'toast://删除成功~'
 									}
@@ -655,7 +655,7 @@ if (MY_PAGE == 1) {
 			}, {
 				title: '♻️ 恢复默认',
 				js: $.toString(() => {
-					deleteFile('hiker://files/Jm/gedan.json');
+					deleteFile('hiker://files/zf2629/json/gedan.json');
 					refreshPage(false);
 					return 'toast://已恢复默认'
 				})
@@ -664,7 +664,7 @@ if (MY_PAGE == 1) {
 	}, {
 		title: '‘‘’’小七<small> 榜单</small>',
 		col_type: 'icon_3_round_fill',
-		pic: 'http://123.56.105.145/tubiao/music/85.svg',
+		pic: 'hiker://files/zf2629/svg/QQ音乐.svg',
 		url: $('#noLoading#').lazyRule(() => {
 			let gedan = [{
 				"icon": "http://y.gtimg.cn/music/photo_new/T003R500x500M000000isiYt2bk23d.jpg",
@@ -1126,7 +1126,7 @@ if (MY_PAGE == 1) {
 	d.push({
 		title: '‘‘’’小芸<small> 榜单</small>',
 		col_type: 'icon_3_round_fill',
-		pic: 'http://123.56.105.145/tubiao/music/51.svg',
+		pic: 'hiker://files/zf2629/svg/网易.svg',
 		url: $('#noLoading#').lazyRule(() => {
 			var gedan = JSON.parse(fc('http://music.163.com/api/toplist', 24)).list.map(l => {
 				return {
@@ -1223,7 +1223,7 @@ if (MY_PAGE == 1) {
 	d.push({
 		title: getItem('kwgd', 'new') == 'new' ? '‘‘’’小莴<small> 最新</small>' : '‘‘’’小莴<small> 最热</small>',
 		col_type: 'icon_3_round_fill',
-		pic: 'http://123.56.105.145/tubiao/music/82.svg',
+		pic: 'hiker://files/zf2629/svg/酷我.svg',
 		url: $('#noLoading#').lazyRule(() => {
 			setItem('kwgd', getItem('kwgd', 'new') == 'new' ? 'hot' : 'new');
 			refreshPage(false);
